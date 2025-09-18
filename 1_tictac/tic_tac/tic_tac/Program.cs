@@ -10,23 +10,27 @@ namespace tic_tac
     {
         static void Main(string[] args)
         {
-            const int FILES = 4;
-            const int COLUMNES = 2;
-            int min = -50;
-            int max = 50;
+            const int FILES = 3;
+            const int COLUMNES = 3;
+            int min = 0;
+            int max = 2;
+            int buit = 0;
             int i, j;
             int[,] matriu1 = new int[FILES, COLUMNES];
-            double percpos, perneg;
-            int contpos = 0, contneg = 0;
-            int total = (FILES * COLUMNES);//les files multiplicat per les columnes son el total per calcular el percentatge
-
-            Random rnd = new Random();
 
             for (i = 0; i < FILES; i++)
             {
-                for (j = 0; j < 2; ++j)
-                    matriu1[i, j] = rnd.Next(min, max + 1);
+                for (j = 0; j < COLUMNES; ++j)
+                    matriu1[i, j] = buit;
             }
+
+            Console.WriteLine("fila");
+            int X= Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("columna");  
+            int Y= Convert.ToInt32(Console.ReadLine());
+            matriu1[X, Y] = 1;//assigna el valor 1 a la posició X,Y
+
+
             Console.WriteLine("La Matriu 1 és: ");//mostra la matriu
             for (i = 0; i < FILES; i++)
             {
