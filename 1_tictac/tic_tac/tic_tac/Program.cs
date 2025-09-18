@@ -23,18 +23,10 @@ namespace tic_tac
                 for (j = 0; j < COLUMNES; ++j)
                     matriu1[i, j] = buit;
             }
-
-            Console.WriteLine("fila");
-            int X= Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("columna");  
-            int Y= Convert.ToInt32(Console.ReadLine());
-            matriu1[X, Y] = 1;//assigna el valor 1 a la posició X,Y
-
-
-            Console.WriteLine("La Matriu 1 és: ");//mostra la matriu
+            Console.WriteLine("La Matriu és: ");//mostra la matriu
             for (i = 0; i < FILES; i++)
             {
-                for (j = 0; j < 2; ++j)
+                for (j = 0; j < COLUMNES; ++j)
                 {
                     Console.Write(matriu1[i, j] + " ");
                 }
@@ -45,11 +37,60 @@ namespace tic_tac
                 }
                 else
                 {
-                    Console.Write(", ");
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine("Jugador 1");
+            Console.WriteLine("fila");
+            int X= Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("columna");  
+            int Y= Convert.ToInt32(Console.ReadLine());
+            matriu1[X, Y] = 1;//assigna el valor 1 a la posició X,Y
+
+
+            Console.WriteLine("La Matriu és: ");//mostra la matriu
+            for (i = 0; i < FILES; i++)
+            {
+                for (j = 0; j < COLUMNES; ++j)
+                {
+                    Console.Write(matriu1[i, j] + " ");
+                }
+
+                if (i == FILES - 1 && j == 2)
+                {
+                    Console.Write("");
+                }
+                else
+                {
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine("Jugador 2");
+            Console.WriteLine("fila");
+            X = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("columna");
+            Y = Convert.ToInt32(Console.ReadLine());
+            matriu1[X, Y] = 2;//assigna el valor 1 a la posició X,Y
+            Console.WriteLine("La Matriu és: ");//mostra la matriu
+            for (i = 0; i < FILES; i++)
+            {
+                for (j = 0; j < COLUMNES; ++j)
+                {
+                    Console.Write(matriu1[i, j] + " ");
+                }
+
+                if (i == FILES - 1 && j == 2)
+                {
+                    Console.Write("");
+                }
+                else
+                {
+                    Console.WriteLine();
                 }
             }
 
-            for (i = 0; i < FILES; i++) // Comptar per separat els positius i negatius i fent la suma al contador
+            /*for (i = 0; i < FILES; i++) // Comptar per separat els positius i negatius i fent la suma al contador
             {
                 for (j = 0; j < COLUMNES; j++)
                 {
@@ -64,8 +105,8 @@ namespace tic_tac
 
             Console.WriteLine();
             Console.WriteLine("Percentatge de nombres positius: {0}", percpos);
-            Console.WriteLine("Percentatge de nombres negatius: {0}", perneg);
+            Console.WriteLine("Percentatge de nombres negatius: {0}", perneg);*/
         }
     }
     }
-}
+
