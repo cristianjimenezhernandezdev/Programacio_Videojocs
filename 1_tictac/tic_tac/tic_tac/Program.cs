@@ -43,9 +43,9 @@ namespace tic_tac
             Console.WriteLine();
             Console.WriteLine("Jugador 1");
             Console.WriteLine("fila");
-            int X= Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("columna");  
-            int Y= Convert.ToInt32(Console.ReadLine());
+            int X = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("columna");
+            int Y = Convert.ToInt32(Console.ReadLine());
             matriu1[X, Y] = 1;//assigna el valor 1 a la posició X,Y
 
 
@@ -90,23 +90,63 @@ namespace tic_tac
                 }
             }
 
-            /*for (i = 0; i < FILES; i++) // Comptar per separat els positius i negatius i fent la suma al contador
+            /*
+            
+             
+            int torn=1;
+            do
             {
-                for (j = 0; j < COLUMNES; j++)
-                {
-                    if (matriu1[i, j] > 0)
-                        contpos++;
-                    else if (matriu1[i, j] < 0)
-                        contneg++;
-                }
-            }
-            percpos = (contpos * 100.0) / total;
-            perneg = (contneg * 100.0) / total;
+            - Gestio torn--------
+            Per canviar de torn
+              if (torn == 1)
+               { torn = 2;}
+                else { torn = 1; }
+            - Mostrar matriu--------
+            - Demanar posicions tirada--------
+            - comprovar validesa tirada
+            - gurdar tirada a tauler
+              matriu1[X, Y] = torn;//assigna el valor 1 a la posició X,Y
+            - comprovar si has guanyat
+             hi ha 8 maneres possibles de guanyar
+            if (matriu[0,0]==matriu[0,1]&& matriu[0,1]==matriu[0,2] && matriu[0,0]!=0)||
+                guanyador=true;
+           
+            tiradas++;
+            } while (torn < 9 && !guanyador);
+             */
 
-            Console.WriteLine();
-            Console.WriteLine("Percentatge de nombres positius: {0}", percpos);
-            Console.WriteLine("Percentatge de nombres negatius: {0}", perneg);*/
+
+        }
+        static int CanviTorn(int torn)
+        {
+            if (torn == 1)
+            { torn = 2; }
+            else { torn = 1; }
+            return torn;
+        }
+        static void MostraMatriu(int[,] matriu)
+        {
+            for (int i = 0; i < matriu.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriu.GetLength(1); j++)
+                {
+                    Console.Write(matriu[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+        static void DemanaPosicio(int torn, out int X, out int Y)
+        {
+            Console.WriteLine("Jugador " + torn);
+            Console.WriteLine("fila");
+            X = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("columna");
+            Y = Convert.ToInt32(Console.ReadLine());
+        }
+        static void guardaTirada(int[,] matriu, int X, int Y, int torn)
+        {
+            matriu[X, Y] = torn;//assigna el valor 1 a la posició X,Y
         }
     }
-    }
+}
 
