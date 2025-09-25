@@ -43,6 +43,7 @@
             pbCanvas.Size = new Size(1004, 453);
             pbCanvas.TabIndex = 0;
             pbCanvas.TabStop = false;
+            pbCanvas.Paint += pbCanvas_Paint;
             // 
             // lblPuntuacio
             // 
@@ -80,6 +81,8 @@
             Controls.Add(pbCanvas);
             Name = "Form1";
             Text = "Form1";
+            KeyDown += Form1_KeyDown;
+            KeyUp += Form1_KeyUp;
             ((System.ComponentModel.ISupportInitialize)pbCanvas).EndInit();
             ResumeLayout(false);
             PerformLayout();

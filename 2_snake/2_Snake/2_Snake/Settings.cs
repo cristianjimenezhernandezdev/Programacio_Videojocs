@@ -30,7 +30,7 @@ namespace _2_Snake
         {
             Width = 16;
             Height = 16;
-            Speed = 16;
+            Speed = 10;
             Score = 0;
             Points = 100;
             GameOver = false;
