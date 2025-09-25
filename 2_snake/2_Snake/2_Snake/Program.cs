@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Windows.Forms;
+using static System.Formats.Asn1.AsnWriter;
 namespace _2_Snake
 {
     internal static class Program
@@ -13,5 +16,7 @@ namespace _2_Snake
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }
+
+
     }
 }

@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pbCanvas = new PictureBox();
             lblPuntuacio = new Label();
             lblPunts = new Label();
+            gameTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pbCanvas).BeginInit();
             SuspendLayout();
             // 
@@ -63,6 +65,11 @@
             lblPunts.TabIndex = 2;
             lblPunts.Text = "label2";
             // 
+            // gameTimer
+            // 
+            gameTimer.Enabled = true;
+            gameTimer.Tick += timer1_Tick;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -83,5 +90,6 @@
         private PictureBox pbCanvas;
         private Label lblPuntuacio;
         private Label lblPunts;
+        private System.Windows.Forms.Timer gameTimer;
     }
 }
