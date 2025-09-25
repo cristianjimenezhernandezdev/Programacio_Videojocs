@@ -6,9 +6,9 @@ namespace _2_Snake
         {
             InitializeComponent();
         }
-        private void Button1_Click(object sender, EventArgs e)
+
+        private void label1_Click(object sender, EventArgs e)
         {
-           textBox1.Text = "Bonjour";
 
         }
     }
