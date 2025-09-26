@@ -1,9 +1,13 @@
+using System.Drawing.Text;
+
 namespace _2_Snake
 {
     public partial class Form1 : Form
     {
+
         private List<Cercle> Snake = new List<Cercle>();
         private Cercle food = new Cercle();
+
         public Form1()
         {
             InitializeComponent();
@@ -88,10 +92,7 @@ namespace _2_Snake
 
 
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -159,10 +160,52 @@ namespace _2_Snake
                 }
 
                 //Comprobar colisions
+                //parets
+                //ell mateix
+                //menjar
+
+                if (Snake[0].X == food.X && Snake[0].Y == food.Y)
+                {
+                    //La serp menja
+                    Menja();
+                }
 
             }
         }
+        private void Menja()
+        {
+            //Afegim una boleta a la serp
+            Cercle cercle = new Cercle();
+            cercle.X = Snake[Snake.Count - 1].X;
+            cercle.Y = Snake[Snake.Count - 1].Y;
+            Snake.Add(cercle);
+            //Incrementem la puntuació
+            Settings.Score += Settings.Points;
+            lblPunts.Text = Settings.Score.ToString();
+            GenerateFood();
+
+        }
+        private bool SnakeXoc()//Comprova si la serp ha xocat amb alguna paret o amb ella mateixa
+        {
+            if (Snake[0].X < 0 || Snake[0].Y < 0 || Snake[0].X >= pbCanvas.Size.Width / Settings.Width || Snake[0].Y >= pbCanvas.Size.Height / Settings.Height)
+            {
+                return Settings.GameOver = true;
+            }
+            else if (MateixaPosicio())
+                return Settings.GameOver = true;
+            else
+                return Settings.GameOver = false;
+        }
+        private bool MateixaPosicio()//Comprova si el cap de la serp està a la mateixa posició que alguna altra part del cos
+        {
+            for (int i = 2; i < Snake.Count - 1; i++)
+            {
+                if (Snake[0].X == Snake[i].X && Snake[0].Y == Snake[i].Y)
+                    return true;
+            }
+            return false;
 
 
+        }
     }
 }

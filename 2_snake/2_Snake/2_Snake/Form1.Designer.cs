@@ -1,4 +1,5 @@
-﻿namespace _2_Snake
+﻿
+namespace _2_Snake
 {
     partial class Form1
     {
@@ -54,7 +55,7 @@
             lblPuntuacio.Size = new Size(120, 32);
             lblPuntuacio.TabIndex = 1;
             lblPuntuacio.Text = "Puntuacio";
-            lblPuntuacio.Click += label1_Click;
+            lblPuntuacio.Click += lblPunts_Click;
             // 
             // lblPunts
             // 
@@ -86,6 +87,11 @@
             ((System.ComponentModel.ISupportInitialize)pbCanvas).EndInit();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void lblPunts_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
