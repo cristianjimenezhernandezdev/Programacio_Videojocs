@@ -39,7 +39,7 @@ namespace _2_Snake
 
             lblPunts.Text = Settings.Score.ToString();
             GenerateFood();
-
+  
         }
         private void SelNivell(int nivell)
         {
@@ -54,15 +54,15 @@ namespace _2_Snake
                     Settings.Height = 24;
                     break;      // Fàcil
                 case 2:
-                    Settings.Speed = 16;
+                    Settings.Speed = 10;
                     Settings.Points = 25;
                     break;     // Normal
                 case 3:
-                    Settings.Speed = 32;
+                    Settings.Speed = 24;
                     Settings.Points = 0;
                     Settings.Width = 12;
-                    Settings.Height = 12;
-                    mina = new Cercle { };
+                    Settings.Height = 12;                    
+                    
                     break;     // Difícil
                 default: Settings.Speed = 16; break;
             }
@@ -146,7 +146,7 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
         private void UpdateScreen(Object sender, EventArgs e)
         {
             EscoltarMenu();
-            
+ 
             polsartecles();
             pbCanvas.Invalidate();
             return;
@@ -243,6 +243,19 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
                     )
                 );
             }
+            if (nivellSeleccionat == 3 && mina != null)//copio els altres codis i dibuixem la mina
+            {
+                canvas.FillEllipse(
+                    Brushes.Gray,
+                    new Rectangle(
+                        mina.X * Settings.Width,
+                        mina.Y * Settings.Height,
+                        Settings.Width,
+                        Settings.Height
+                    )
+                );
+            }
+
         }
 
         private void DrawGameOver(Graphics canvas)
@@ -312,6 +325,8 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
             Settings.Score += Settings.Points;
             lblPunts.Text = Settings.Score.ToString();
             GenerateFood();
+            if (nivellSeleccionat == 3) // només si és difícil
+                Mina();
 
         }
         private bool SnakeXoc()//Comprova si la serp ha xocat amb alguna paret o amb ella mateixa
@@ -322,6 +337,8 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
                 return Settings.GameOver = true;
             }
             else if (MateixaPosicio())
+                return Settings.GameOver = true;
+            else if(Snake[0].X == mina.X && Snake[0].Y == mina.Y && nivellSeleccionat == 3)
                 return Settings.GameOver = true;
             else
                 return Settings.GameOver = false;
@@ -375,19 +392,19 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
             Random r = new Random();
 
             bool lliure = false;
-            int x = 0, y = 0;
+            int h = 0, j = 0;
 
             while (!lliure)
             {
                 // 1. Genera una posició aleatòria
-                x = r.Next(0, maxXPos);
-                y = r.Next(0, maxYPos);
+                h = r.Next(0, maxXPos);
+                j = r.Next(0, maxYPos);
 
                 // 2. Comprova si coincideix amb alguna part de la serp
                 lliure = true;
                 foreach (var serp in Snake)
                 {
-                    if (serp.X == x && serp.Y == y)
+                    if (serp.X == h && serp.Y == j)
                     {
                         lliure = false; // Si coincideix, no és vàlida
                         break;
@@ -396,7 +413,7 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
             }
 
             // 3. Quan troba una posició lliure, assigna el menjar
-            mina = new Cercle { X = x, Y = y };
+            mina = new Cercle { X = h, Y = j };
             
 
         }
