@@ -139,7 +139,7 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
                     Settings.direction = Direction.Down;
 
                 MovePlayer();
-                //Comprovem si la serp ha xocat
+                
                 
             }
         }
@@ -151,6 +151,7 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
             pbCanvas.Invalidate();
             return;
         }
+        //Funcions creades automaticament amb el diseny del forms
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             Input.ChangeState(e.KeyCode, true);
