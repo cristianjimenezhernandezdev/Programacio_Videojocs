@@ -20,7 +20,9 @@ namespace _2_Snake
             gameTimer.Interval = 1000 / Math.Max(1, Settings.Speed);
             gameTimer.Tick += UpdateScreen;
             gameTimer.Start();
-            
+            SelNivell(nivellSeleccionat);
+            StartGame();
+
 
         }
 
