@@ -7,10 +7,13 @@ namespace _2_Snake
 
         private List<Cercle> Snake = new List<Cercle>();
         private Cercle food = new Cercle();
+        private bool menuPrincipal = true; //Mires si esta en el menu principal
+        private int nivellSeleccionat = 2; //per defecte el nivell normal qu és el 2
 
         public Form1()
         {
             InitializeComponent();
+
 
             new Settings();
 
@@ -19,6 +22,7 @@ namespace _2_Snake
             gameTimer.Tick += UpdateScreen;
             gameTimer.Start();
 
+            
             //Start new game
             StartGame();
 
@@ -70,13 +74,26 @@ namespace _2_Snake
             // 3. Quan troba una posició lliure, assigna el menjar
             food = new Cercle { X = x, Y = y };
         }
-        private void UpdateScreen(Object sender, EventArgs e)
+        private void polsartecles()
         {
+            if(Input.KeyPressed(Keys.Space))
+               {
+                gameTimer.Interval = 1000 / (Settings.Speed * 2);
+            }
+            else 
+            {
+                gameTimer.Interval = 1000 / Settings.Speed;
+            }
+            //si apreta escape, game over
+            if (Input.KeyPressed(Keys.Escape))
+            {
+                Settings.GameOver = true;
+            }
+
             //mirem si el joc ha acabat
             if (Settings.GameOver)
             {
-                //Mostrem el missatge de Game Over
-              
+
                 //Mirem si apretem l'Enter
                 if (Input.KeyPressed(Keys.Enter))
                 {
@@ -99,6 +116,10 @@ namespace _2_Snake
                 //Comprovem si la serp ha xocat
                 SnakeXoc();
             }
+        }
+        private void UpdateScreen(Object sender, EventArgs e)
+        {
+            polsartecles();
             pbCanvas.Invalidate();
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -111,57 +132,106 @@ namespace _2_Snake
             Input.ChangeState(e.KeyCode, false);
         }
 
-
-
-
-
-
-
         private void timer1_Tick(object sender, EventArgs e)
         {
 
         }
+        //manejo el pbcanvas per mostrar diferents pantalles i el separo amb funcions
         private void pbCanvas_Paint(object sender, PaintEventArgs e)
         {
-            Graphics canvas = e.Graphics;
+            Graphics canvas = e.Graphics;            
+            canvas.Clear(Color.MidnightBlue);
 
-            if (!Settings.GameOver)
+            if (menuPrincipal)
             {
-                //Pintem la serp
-                for (int i = 0; i < Snake.Count; i++)
-                {
-                    //Assignem el color de la serp
-                    Brush snakeColour;
-                    if (i == 0)
-                        snakeColour = Brushes.Black;    //Draw head
-                    else
-                        snakeColour = Brushes.Green;    //Rest of body
-
-                    //Dibuixem cada boleta
-                    canvas.FillEllipse(snakeColour,
-                        new Rectangle(Snake[i].X * Settings.Width,
-                                      Snake[i].Y * Settings.Height,
-                                      Settings.Width, Settings.Height));
-
-                }
-                    //Dibuixem el menjar
-                    canvas.FillEllipse(Brushes.Red,
-                        new Rectangle(food.X * Settings.Width,
-                             food.Y * Settings.Height, Settings.Width, Settings.Height));
-
-                
+                PantallaMenu(canvas);
+                return;//obliga a sortir per evitar que s'executi el codi de sota
             }
-            else//manejo el text de Game Over, mostrant-lo pintant amb la funcio DrewString
+
+            if (!Settings.GameOver && !menuPrincipal)
             {
-                canvas.Clear(Color.DarkTurquoise);
-                string text1 = "Game Over";
-                string text2 = "Apreta Enter per reiniciar";
-                {
-                    canvas.DrawString(text1, new Font("Arial", 40, FontStyle.Bold), Brushes.Red, new Point(320, 200));
-                    canvas.DrawString(text2, new Font("Arial", 20, FontStyle.Bold), Brushes.White, new Point(310, 300));
-                }
+                PantallaJoc(canvas);
+            }
+            else
+            {
+                DrawGameOver(canvas);
             }
         }
+
+        private void PantallaMenu(Graphics canvas)
+        {
+            int opcio = 0;
+            string titol = "SNAKE";
+            string instruccions = "1 - Fàcil\n2 - Normal\n3 - Difícil";
+            string info = "Selecciona per començar";
+
+            using (Font fontTitol = new Font("Arial", 48, FontStyle.Bold))
+            using (Font fontOpcions = new Font("Arial", 24, FontStyle.Regular))
+            using (Font fontInfo = new Font("Arial", 16, FontStyle.Italic))
+            using (StringFormat format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+            {
+                canvas.DrawString(titol, fontTitol, Brushes.Gold, new Rectangle(0, 40, pbCanvas.Width, 80), format);
+                canvas.DrawString(instruccions, fontOpcions, Brushes.White, new Rectangle(0, 150, pbCanvas.Width, 200), format);
+                canvas.DrawString(info, fontInfo, Brushes.LightGray, new Rectangle(0, 350, pbCanvas.Width, 50), format);
+            }
+            
+        }
+
+        private void PantallaJoc(Graphics canvas)
+        {
+            // Colors de la serp
+            for (int i = 0; i < Snake.Count; i++)
+            {
+                Brush snakeColour;
+                if (i == 0)
+                    snakeColour = Brushes.Black;
+                else if (i == Snake.Count - 1)//Es la cua canviada de color
+                    snakeColour = Brushes.DarkGoldenrod;
+                else
+                    snakeColour = Brushes.Green;
+
+                canvas.FillEllipse(
+                    snakeColour,
+                    new Rectangle(
+                        Snake[i].X * Settings.Width,
+                        Snake[i].Y * Settings.Height,
+                        Settings.Width,
+                        Settings.Height
+                    )
+                );
+            }
+
+            // Menjar (defensiu per si encara no hi és)
+            if (food != null)
+            {
+                canvas.FillEllipse(
+                    Brushes.Red,
+                    new Rectangle(
+                        food.X * Settings.Width,
+                        food.Y * Settings.Height,
+                        Settings.Width,
+                        Settings.Height
+                    )
+                );
+            }
+        }
+
+        private void DrawGameOver(Graphics canvas)
+        {
+            canvas.Clear(Color.DarkTurquoise);
+
+            string text1 = "Game Over";
+            string text2 = "Enter per reiniciar";
+
+            using (StringFormat format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+            using (Font f1 = new Font("Arial", 40, FontStyle.Bold))
+            using (Font f2 = new Font("Arial", 20, FontStyle.Bold))
+            {
+                canvas.DrawString(text1, f1, Brushes.Red, new Rectangle(0, pbCanvas.Height / 2 - 60, pbCanvas.Width, 60), format);
+                canvas.DrawString(text2, f2, Brushes.White, new Rectangle(0, pbCanvas.Height / 2 + 10, pbCanvas.Width, 40), format);
+            }
+        }
+
         private void MovePlayer()
         {
             for (int i = Snake.Count - 1; i >= 0; i--)
@@ -191,10 +261,7 @@ namespace _2_Snake
                     Snake[i].X = Snake[i - 1].X;
                     Snake[i].Y = Snake[i - 1].Y;
                 }
-
-               
-               
-               
+                              
                 //menjar
 
                 if (Snake[0].X == food.X && Snake[0].Y == food.Y)
