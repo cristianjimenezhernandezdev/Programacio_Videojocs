@@ -140,13 +140,13 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
 
                 MovePlayer();
                 //Comprovem si la serp ha xocat
-                SnakeXoc();
+                
             }
         }
         private void UpdateScreen(Object sender, EventArgs e)
         {
             EscoltarMenu();
- 
+            SnakeXoc();
             polsartecles();
             pbCanvas.Invalidate();
             return;
