@@ -40,22 +40,43 @@ namespace _2_Snake
             GenerateFood();
 
         }
-        private void GenerateFood()
+        private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb la serp
         {
-            //Creem menjar a una posició random
             int maxXPos = pbCanvas.Size.Width / Settings.Width;
             int maxYPos = pbCanvas.Size.Height / Settings.Height;
-
             Random r = new Random();
-            food = new Cercle();
-            food.X = r.Next(0, maxXPos);
-            food.Y = r.Next(0, maxYPos);
+
+            bool lliure = false;
+            int x = 0, y = 0;
+
+            while (!lliure)
+            {
+                // 1. Genera una posició aleatòria
+                x = r.Next(0, maxXPos);
+                y = r.Next(0, maxYPos);
+
+                // 2. Comprova si coincideix amb alguna part de la serp
+                lliure = true;
+                foreach (var serp in Snake)
+                {
+                    if (serp.X == x && serp.Y == y)
+                    {
+                        lliure = false; // Si coincideix, no és vàlida
+                        break;
+                    }
+                }
+            }
+
+            // 3. Quan troba una posició lliure, assigna el menjar
+            food = new Cercle { X = x, Y = y };
         }
         private void UpdateScreen(Object sender, EventArgs e)
         {
             //mirem si el joc ha acabat
             if (Settings.GameOver)
             {
+                //Mostrem el missatge de Game Over
+              
                 //Mirem si apretem l'Enter
                 if (Input.KeyPressed(Keys.Enter))
                 {
@@ -75,6 +96,8 @@ namespace _2_Snake
                     Settings.direction = Direction.Down;
 
                 MovePlayer();
+                //Comprovem si la serp ha xocat
+                SnakeXoc();
             }
             pbCanvas.Invalidate();
         }
@@ -120,12 +143,22 @@ namespace _2_Snake
                                       Snake[i].Y * Settings.Height,
                                       Settings.Width, Settings.Height));
 
-
+                }
                     //Dibuixem el menjar
                     canvas.FillEllipse(Brushes.Red,
                         new Rectangle(food.X * Settings.Width,
                              food.Y * Settings.Height, Settings.Width, Settings.Height));
 
+                
+            }
+            else//manejo el text de Game Over, mostrant-lo pintant amb la funcio DrewString
+            {
+                canvas.Clear(Color.DarkTurquoise);
+                string text1 = "Game Over";
+                string text2 = "Apreta Enter per reiniciar";
+                {
+                    canvas.DrawString(text1, new Font("Arial", 40, FontStyle.Bold), Brushes.Red, new Point(320, 200));
+                    canvas.DrawString(text2, new Font("Arial", 20, FontStyle.Bold), Brushes.White, new Point(310, 300));
                 }
             }
         }
@@ -159,9 +192,9 @@ namespace _2_Snake
                     Snake[i].Y = Snake[i - 1].Y;
                 }
 
-                //Comprobar colisions
-                //parets
-                //ell mateix
+               
+               
+               
                 //menjar
 
                 if (Snake[0].X == food.X && Snake[0].Y == food.Y)
@@ -207,5 +240,7 @@ namespace _2_Snake
 
 
         }
+
+
     }
 }
