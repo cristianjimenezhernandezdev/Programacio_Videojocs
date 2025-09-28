@@ -49,17 +49,17 @@ namespace _2_Snake
             {
                 case 1:
                     Settings.Speed = 8;
-                    Settings.Points = 50;
+                    Settings.Points = 100;
                     Settings.Width = 24;
                     Settings.Height = 24;
                     break;      // Fàcil
                 case 2:
-                    Settings.Speed = 10;
+                    Settings.Speed = 50;
                     Settings.Points = 25;
                     break;     // Normal
                 case 3:
                     Settings.Speed = 24;
-                    Settings.Points = 0;
+                    Settings.Points = 25;
                     Settings.Width = 12;
                     Settings.Height = 12;                    
                     
@@ -124,7 +124,7 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
                 if (Input.KeyPressed(Keys.Enter))
                 {
                     //Tornem a jugar
-                    SelNivell(nivellSeleccionat);
+                    menuPrincipal = true;
                 }
             }
             else//Mirem quin moviment fem
