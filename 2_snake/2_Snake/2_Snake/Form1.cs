@@ -16,22 +16,18 @@ namespace _2_Snake
         {
             InitializeComponent();
 
-
-
-            new Settings();
-
             //Inicialitzem el timer
-            gameTimer.Interval = 1000 / Settings.Speed;
+            gameTimer.Interval = 1000 / Math.Max(1, Settings.Speed);
             gameTimer.Tick += UpdateScreen;
             gameTimer.Start();
-            menuPrincipal = true;//posem el menu principal
+            
 
         }
 
         private void StartGame()
         {    
      
-
+            
             //Creem un nou objecte jugador
             Snake.Clear();
             Cercle head = new Cercle();
@@ -45,8 +41,7 @@ namespace _2_Snake
         }
         private void SelNivell(int nivell)
         {
-            new Settings();
-
+            Settings.Reset();
             // Assigna la velocitat segons el nivell
             switch (nivell)
             {
@@ -69,8 +64,8 @@ namespace _2_Snake
                     break;     // Difícil
                 default: Settings.Speed = 16; break;
             }
-            
-          
+            gameTimer.Interval = 1000 / Math.Max(1, Settings.Speed);
+
         }
 
 private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb la serp
@@ -107,11 +102,11 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
         {
             if(Input.KeyPressed(Keys.Space))
                {
-                gameTimer.Interval = 1000 / (Settings.Speed * 2);
+                gameTimer.Interval = 1000 / Math.Max(1, Settings.Speed*2);
             }
             else 
             {
-                gameTimer.Interval = 1000 / Settings.Speed;
+                gameTimer.Interval = 1000 / Math.Max(1, Settings.Speed);
             }
             //si apreta escape, game over
             if (Input.KeyPressed(Keys.Escape))
@@ -152,6 +147,7 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
             
             polsartecles();
             pbCanvas.Invalidate();
+            return;
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -318,7 +314,8 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
         }
         private bool SnakeXoc()//Comprova si la serp ha xocat amb alguna paret o amb ella mateixa
         {
-            if (Snake[0].X < 0 || Snake[0].Y < 0 || Snake[0].X >= pbCanvas.Size.Width / Settings.Width || Snake[0].Y >= pbCanvas.Size.Height / Settings.Height)
+            if (Snake[0].X < 0 || Snake[0].Y < 0 || Snake[0].X >= pbCanvas.Size.Width / Math.Max(1, Settings.Width) || Snake[0].Y >= pbCanvas.Size.Height / Math.Max(1, Settings.Height))
+
             {
                 return Settings.GameOver = true;
             }
@@ -342,24 +339,31 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
         {
             if (Input.KeyPressed(Keys.D1) || Input.KeyPressed(Keys.NumPad1))
             {
+                Settings.Reset();
                 nivellSeleccionat = 1;
                 SelNivell(nivellSeleccionat);
                 menuPrincipal = false;
                 StartGame();
+                Settings.GameOver = false;
+
             }
             else if (Input.KeyPressed(Keys.D2) || Input.KeyPressed(Keys.NumPad2))
             {
+                Settings.Reset();
                 nivellSeleccionat = 2;
                 SelNivell(nivellSeleccionat);
                 menuPrincipal = false;
                 StartGame();
+                Settings.GameOver = false;
             }
             else if (Input.KeyPressed(Keys.D3) || Input.KeyPressed(Keys.NumPad3))
             {
+                Settings.Reset();
                 nivellSeleccionat = 3;
                 SelNivell(nivellSeleccionat);
-                menuPrincipal = false;
+                menuPrincipal = false;                
                 StartGame();
+                Settings.GameOver = false;
             }
         }
         private void Mina()//Genero mines, pero comprovo que no coincideixi amb la serp
@@ -369,7 +373,7 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
             Random r = new Random();
 
             bool lliure = false;
-            int x = 0, y = 0, x1=0,y2=0;
+            int x = 0, y = 0;
 
             while (!lliure)
             {
@@ -391,7 +395,7 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
 
             // 3. Quan troba una posició lliure, assigna el menjar
             mina = new Cercle { X = x, Y = y };
-            mina=new Cercle { X = x1, Y = y2 };
+            
 
         }
 

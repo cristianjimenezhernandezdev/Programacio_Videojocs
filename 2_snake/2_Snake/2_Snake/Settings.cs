@@ -36,6 +36,16 @@ namespace _2_Snake
             GameOver = false;
             direction = Direction.Down;
         }
+        public static void Reset()
+        {
+            Width = 16;
+            Height = 16;
+            Speed = 16;
+            Score = 0;
+            Points = 100;
+            GameOver = false;
+            direction = Direction.Down;
+        }
 
 
     }
