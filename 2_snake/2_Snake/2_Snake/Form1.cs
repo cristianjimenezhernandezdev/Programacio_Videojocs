@@ -1,3 +1,4 @@
+using _2_Snake;
 using System.Drawing.Text;
 
 namespace _2_Snake
@@ -7,6 +8,7 @@ namespace _2_Snake
 
         private List<Cercle> Snake = new List<Cercle>();
         private Cercle food = new Cercle();
+        private Cercle mina = new Cercle();
         private bool menuPrincipal = true; //Mires si esta en el menu principal
         private int nivellSeleccionat = 2; //per defecte el nivell normal qu és el 2
 
@@ -15,23 +17,20 @@ namespace _2_Snake
             InitializeComponent();
 
 
+
             new Settings();
 
             //Inicialitzem el timer
             gameTimer.Interval = 1000 / Settings.Speed;
             gameTimer.Tick += UpdateScreen;
             gameTimer.Start();
-
-            
-            //Start new game
-            StartGame();
+            menuPrincipal = true;//posem el menu principal
 
         }
 
         private void StartGame()
-        {
-            //Settings a Default
-            new Settings();
+        {    
+     
 
             //Creem un nou objecte jugador
             Snake.Clear();
@@ -44,7 +43,37 @@ namespace _2_Snake
             GenerateFood();
 
         }
-        private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb la serp
+        private void SelNivell(int nivell)
+        {
+            new Settings();
+
+            // Assigna la velocitat segons el nivell
+            switch (nivell)
+            {
+                case 1:
+                    Settings.Speed = 8;
+                    Settings.Points = 50;
+                    Settings.Width = 24;
+                    Settings.Height = 24;
+                    break;      // Fàcil
+                case 2:
+                    Settings.Speed = 16;
+                    Settings.Points = 25;
+                    break;     // Normal
+                case 3:
+                    Settings.Speed = 32;
+                    Settings.Points = 0;
+                    Settings.Width = 12;
+                    Settings.Height = 12;
+                    mina = new Cercle { };
+                    break;     // Difícil
+                default: Settings.Speed = 16; break;
+            }
+            
+          
+        }
+
+private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb la serp
         {
             int maxXPos = pbCanvas.Size.Width / Settings.Width;
             int maxYPos = pbCanvas.Size.Height / Settings.Height;
@@ -98,7 +127,7 @@ namespace _2_Snake
                 if (Input.KeyPressed(Keys.Enter))
                 {
                     //Tornem a jugar
-                    StartGame();
+                    SelNivell(nivellSeleccionat);
                 }
             }
             else//Mirem quin moviment fem
@@ -119,6 +148,8 @@ namespace _2_Snake
         }
         private void UpdateScreen(Object sender, EventArgs e)
         {
+            EscoltarMenu();
+            
             polsartecles();
             pbCanvas.Invalidate();
         }
@@ -160,7 +191,7 @@ namespace _2_Snake
 
         private void PantallaMenu(Graphics canvas)
         {
-            int opcio = 0;
+            
             string titol = "SNAKE";
             string instruccions = "1 - Fàcil\n2 - Normal\n3 - Difícil";
             string info = "Selecciona per començar";
@@ -307,7 +338,62 @@ namespace _2_Snake
 
 
         }
+        private void EscoltarMenu()
+        {
+            if (Input.KeyPressed(Keys.D1) || Input.KeyPressed(Keys.NumPad1))
+            {
+                nivellSeleccionat = 1;
+                SelNivell(nivellSeleccionat);
+                menuPrincipal = false;
+                StartGame();
+            }
+            else if (Input.KeyPressed(Keys.D2) || Input.KeyPressed(Keys.NumPad2))
+            {
+                nivellSeleccionat = 2;
+                SelNivell(nivellSeleccionat);
+                menuPrincipal = false;
+                StartGame();
+            }
+            else if (Input.KeyPressed(Keys.D3) || Input.KeyPressed(Keys.NumPad3))
+            {
+                nivellSeleccionat = 3;
+                SelNivell(nivellSeleccionat);
+                menuPrincipal = false;
+                StartGame();
+            }
+        }
+        private void Mina()//Genero mines, pero comprovo que no coincideixi amb la serp
+        {
+            int maxXPos = pbCanvas.Size.Width / Settings.Width;
+            int maxYPos = pbCanvas.Size.Height / Settings.Height;
+            Random r = new Random();
 
+            bool lliure = false;
+            int x = 0, y = 0, x1=0,y2=0;
+
+            while (!lliure)
+            {
+                // 1. Genera una posició aleatòria
+                x = r.Next(0, maxXPos);
+                y = r.Next(0, maxYPos);
+
+                // 2. Comprova si coincideix amb alguna part de la serp
+                lliure = true;
+                foreach (var serp in Snake)
+                {
+                    if (serp.X == x && serp.Y == y)
+                    {
+                        lliure = false; // Si coincideix, no és vàlida
+                        break;
+                    }
+                }
+            }
+
+            // 3. Quan troba una posició lliure, assigna el menjar
+            mina = new Cercle { X = x, Y = y };
+            mina=new Cercle { X = x1, Y = y2 };
+
+        }
 
     }
 }
