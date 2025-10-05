@@ -45,6 +45,7 @@ namespace ShootingDemo
         public ShootingField()
         {
             InitializeComponent();
+            n=0;
 
             //Put the background on the picturebox.  We could do this here, in the design mode, or
             //pass the image into the spritecontroller at a later time.
@@ -383,10 +384,10 @@ namespace ShootingDemo
                 //Just for kicks, we have an animation with fire that comes out of the bottom
                 Spaceship.ChangeAnimation(1);
             }
-            if (down)
+            /*if (down)
             {
                 Spaceship.AnimateOnce(2);
-            }
+            }*/
             //Here is where we fire.
             if (space)
             {
