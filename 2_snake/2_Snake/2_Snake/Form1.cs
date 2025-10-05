@@ -116,7 +116,9 @@ private void GenerateFood()//Genero manjar, pero comprovo que no coincideixi amb
                 Settings.GameOver = true;
             }
 
-            //mirem si el joc ha acabat
+
+
+                       //mirem si el joc ha acabat
             if (Settings.GameOver)
             {
 

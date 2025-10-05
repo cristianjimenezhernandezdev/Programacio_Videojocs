@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Atributs.cs" />
     <Compile Include="Resources\MonsterPayload.cs" />
     <Compile Include="ShootingField.cs">
       <SubType>Form</SubType>

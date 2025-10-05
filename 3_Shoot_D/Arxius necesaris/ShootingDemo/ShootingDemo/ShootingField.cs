@@ -28,7 +28,8 @@ namespace ShootingDemo
         Sprite OneSprite;
         Sprite Spaceship;
         MyDir LastDirection = MyDir.stopped;
-        
+        int n = 0;
+
         Point SpaceshipPoint = new Point(100, 150); //Where the spaceship first appears
         DateTime LastShot = DateTime.Now; //Used in giving a delay between shots
         DateTime LastMovement = DateTime.Now; //Used to give a slight delay in checking for keypress.
@@ -257,6 +258,7 @@ namespace ShootingDemo
                     newPlayer.Play();
                     me.Destroy();
                     e.TargetSprite.Destroy();
+                    ContarMonstre();
                 }
             }
         }
@@ -272,6 +274,9 @@ namespace ShootingDemo
             Many += MySpriteController.CountSpritesBasedOff(SpriteNames.flier.ToString());
             Many += MySpriteController.CountSpritesBasedOff(SpriteNames.jelly.ToString());
             Many += MySpriteController.CountSpritesBasedOff(SpriteNames.walker.ToString());
+
+
+
             if (Many == 0)
             {
                 alreadywon = true;
@@ -291,7 +296,9 @@ namespace ShootingDemo
         {
             Sprite tSprite = (Sprite)sender;
             tSprite.Destroy();
-            CountMonsters();
+            CountMonsters();          
+            
+            
         }
 
         /// <summary>
@@ -415,6 +422,13 @@ namespace ShootingDemo
                 //No keys pressed.  Stop moving
                 Spaceship.MovementSpeed = 0;
             }
+        }
+        //Metodes Exercici--
+        //contador monstres morts
+        public void ContarMonstre()
+        {
+            n+=10;
+            label1.Text = n.ToString();
         }
     }
 }
