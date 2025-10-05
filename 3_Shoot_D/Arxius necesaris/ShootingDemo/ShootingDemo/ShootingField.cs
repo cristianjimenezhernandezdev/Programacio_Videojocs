@@ -40,7 +40,7 @@ namespace ShootingDemo
         //have something that allows us to exit early.  Without this we have many popups telling us that
         //we have won.
         bool alreadywon = false;  
-        
+        private double shotDelay = 10;
 
         public ShootingField()
         {
@@ -406,11 +406,12 @@ namespace ShootingDemo
                 Spaceship.AnimateOnce(2);
             }*/
             //Here is where we fire.
+            shotDelay = MySpriteController.IsKeyPressed(Keys.R) ? 60 : 150;
             if (space)
             {
                 //Check if we have had enough time since we last shot.  If so, we can shoot again
                 TimeSpan Duration = DateTime.Now - LastShot;
-                if (Duration.TotalMilliseconds > 300)
+                if (Duration.TotalMilliseconds > shotDelay)
                 {
                     //We make a new shot sprite.
                     Sprite newsprite = MySpriteController.DuplicateSprite(SpriteNames.shot.ToString());
