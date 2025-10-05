@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using SpriteLibrary;
+using System.Diagnostics.Eventing.Reader;
 
 
 namespace ShootingDemo
@@ -271,14 +272,15 @@ namespace ShootingDemo
                 }
             }
         }
-
+        
         /// <summary>
         /// This is how we count to see if we have any monsters left.  If we have some, we keep on playing
         /// </summary>
         private bool BossAfegit = false;
         public void CountMonsters()
         {
-            if (alreadywon) return;
+           
+            if (alreadywon ) return;
             int Many = 0;
             Many += MySpriteController.CountSpritesBasedOff(SpriteNames.dragon.ToString());
             Many += MySpriteController.CountSpritesBasedOff(SpriteNames.flier.ToString());
@@ -294,6 +296,7 @@ namespace ShootingDemo
                 return;
                
             }
+ 
 
             if (Many == 0 && BossAfegit)
             {
@@ -367,6 +370,7 @@ namespace ShootingDemo
             {
                 MySpriteController.UnPause();
             }
+            Truco();
 
             if (up && down) return; //do nothing if we conflict
             if (left && right) return; //do nothing if we conflict
@@ -442,12 +446,34 @@ namespace ShootingDemo
                 Spaceship.MovementSpeed = 0;
             }
         }
+
         //Metodes Exercici--
         //contador monstres morts
         public void ContarMonstre()
         {
             n+=10;
             label1.Text = n.ToString();
+        }
+
+        public void Truco() 
+        {
+            if (MySpriteController.IsKeyPressed(Keys.J))
+            {
+                n += 100;
+                label1.Text = n.ToString();
+            }
+            if (MySpriteController.IsKeyPressed(Keys.V) && !alreadywon)
+            {
+                alreadywon = true;
+                Spaceship.MovementSpeed = 0;
+                MessageBox.Show("You have won!");
+                Close();
+            }
+
+
+
+
+
         }
     }
 }
