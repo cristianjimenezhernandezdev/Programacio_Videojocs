@@ -40,7 +40,7 @@ namespace ShootingDemo
         //have something that allows us to exit early.  Without this we have many popups telling us that
         //we have won.
         bool alreadywon = false;  
-
+        
 
         public ShootingField()
         {
@@ -82,10 +82,11 @@ namespace ShootingDemo
             //Read in the Jelly Monster Sprite
             Sprite JellyMonster = new Sprite(new Point(0, 100), MySpriteController, Properties.Resources.monsters, 100, 100, 200, 4);
             JellyMonster.SetSize(new Size(30, 30));  //this is small
-            //JellyMonster.CannotMoveOutsideBox = true;
             JellyMonster.SetName(SpriteNames.jelly.ToString());
             JellyMonster.SpriteHitsSprite += MonsterHitBySprite;
-
+            // Fem servir el codi del pdf
+          
+           
             //Read in the dragon monster sprite
             Sprite DragonMonster = new Sprite(new Point(0, 300), MySpriteController, Properties.Resources.monsters, 100, 100, 220, 4);
             DragonMonster.SetSize(new Size(75, 75));
@@ -160,6 +161,7 @@ namespace ShootingDemo
                     starty = 300;
                     speed += 14;
                     break;
+
                 default:
                     return;
             }
@@ -173,6 +175,12 @@ namespace ShootingDemo
             NewSprite.SetSpriteDirectionDegrees(direction);
             NewSprite.PutBaseImageLocation(new Point(startx, starty));
             NewSprite.MovementSpeed = speed;
+            if (What == SpriteNames.jelly)
+            {
+                //Copiem el que diu al pdf
+                NewSprite.AddAnimation(0, 180);
+                NewSprite.ChangeAnimation(1);
+            }
         }
 
 
@@ -267,6 +275,7 @@ namespace ShootingDemo
         /// <summary>
         /// This is how we count to see if we have any monsters left.  If we have some, we keep on playing
         /// </summary>
+        private bool BossAfegit = false;
         public void CountMonsters()
         {
             if (alreadywon) return;
@@ -276,9 +285,17 @@ namespace ShootingDemo
             Many += MySpriteController.CountSpritesBasedOff(SpriteNames.jelly.ToString());
             Many += MySpriteController.CountSpritesBasedOff(SpriteNames.walker.ToString());
 
+            if (Many == 0 && !BossAfegit)
+            {
+                // Afegim el boss
+                
+                AddMonster(SpriteNames.dragon);
+                BossAfegit = true;
+                return;
+               
+            }
 
-
-            if (Many == 0)
+            if (Many == 0 && BossAfegit)
             {
                 alreadywon = true;
                 Spaceship.MovementSpeed = 0;//stop the spaceship
