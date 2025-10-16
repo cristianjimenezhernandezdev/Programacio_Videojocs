@@ -54,7 +54,7 @@ namespace Side_Scrolling_Platform_Game
             }
             // if go left is true and players left is greater than 100 pixels
             // only then move player towards left of the
-            if (Settings.goleft && player.Left > 100)
+            if (Settings.goleft && player.Left > Settings.margePantalla)
             {
                     player.Left -= Settings.playSpeed;
             }
@@ -62,7 +62,7 @@ namespace Side_Scrolling_Platform_Game
             // if go right Boolean is true
             // player left plus players width plus 100 is less than the forms width
             // then we move the player towards the right by adding to the players left
-            if (Settings.goright && player.Left + (player.Width + 100) < this.ClientSize.Width)
+            if (Settings.goright && player.Left + (player.Width + Settings.margePantalla) < this.ClientSize.Width)
             {
                 player.Left += Settings.playSpeed;
             }
@@ -70,7 +70,7 @@ namespace Side_Scrolling_Platform_Game
             // by doing the if statement above, the player picture will stop on the forms right 
             // if go right is true and the background picture left is greater 1352 
             // then we move the background picture towards the left 
-            if (Settings.goright && background.Left > -1353)
+            if (Settings.goright && background.Left > Settings.backgroundLimitEsquerra)
             {
                 background.Left -= Settings.backLeft;
                 sky.Left -= Settings.skyLeft;
@@ -86,7 +86,7 @@ namespace Side_Scrolling_Platform_Game
             }
             // if go left is true and the background pictures left is less than 2 
             // then we move the background picture towards the right 
-            if (Settings.goleft && background.Left < 2)
+            if (Settings.goleft && background.Left < Settings.backgroundLimitDreta)
             {
                 background.Left += Settings.backLeft;
                 sky.Left += Settings.skyLeft;
