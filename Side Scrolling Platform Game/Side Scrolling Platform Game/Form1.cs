@@ -13,16 +13,6 @@ namespace Side_Scrolling_Platform_Game
     public partial class Form1 : Form
     {
         
-        bool goleft = false;// boolean which will control players going left 
-        bool goright = false; // boolean which will control players going right 
-        bool jumping = false; // boolean to check if player is jumping or not 
-        bool hasKey = false; // default value of whether the player has the key 
-        int jumpSpeed = 10; // integer to set jump speed 
-        int force = 8; // force of the jump in an integer 
-        int score = 0; // default score integer set to 0 
-        int playSpeed = 18; //this integer will set players speed to 18 
-        int backLeft = 8; // this integer will set the background moving speed to 8
-        int skyLeft = 4; // this integer will set the background moving speed to 8
 
         public Form1()
         {
@@ -43,70 +33,70 @@ namespace Side_Scrolling_Platform_Game
 
         private void mainGameTimer(object sender, EventArgs e)
         {
-            player.Top += jumpSpeed; 
+            player.Top += Settings.jumpSpeed; 
             // refresh the player picture box consistently 
             player.Refresh();
             // if jumping is true and force is less than 0 // then change jumping to false 
-            if (jumping && force < 0)
+            if (Settings.jumping && Settings.force < 0)
             {
-                jumping = false;
+                Settings.jumping = false;
             }
 
             // if jumping is true // then change jump speed to -12 // reduce force by 1
-            if (jumping)
+            if (Settings.jumping)
             {
-                jumpSpeed = -12;
-                force -= 1;
+                Settings.jumpSpeed = -12;
+                Settings.force -= 1;
             }
             else
             { // else change the jump speed to 12 
-                jumpSpeed = 12;
+                Settings.jumpSpeed = 12;
             }
             // if go left is true and players left is greater than 100 pixels
             // only then move player towards left of the
-            if (goleft && player.Left > 100)
+            if (Settings.goleft && player.Left > 100)
             {
-                    player.Left -= playSpeed;
+                    player.Left -= Settings.playSpeed;
             }
             // by doing the if statement above, the player picture will stop on the forms left
             // if go right Boolean is true
             // player left plus players width plus 100 is less than the forms width
             // then we move the player towards the right by adding to the players left
-            if (goright && player.Left + (player.Width + 100) < this.ClientSize.Width)
+            if (Settings.goright && player.Left + (player.Width + 100) < this.ClientSize.Width)
             {
-                player.Left += playSpeed;
+                player.Left += Settings.playSpeed;
             }
 
             // by doing the if statement above, the player picture will stop on the forms right 
             // if go right is true and the background picture left is greater 1352 
             // then we move the background picture towards the left 
-            if (goright && background.Left > -1353)
+            if (Settings.goright && background.Left > -1353)
             {
-                background.Left -= backLeft;
-                sky.Left -= skyLeft;
+                background.Left -= Settings.backLeft;
+                sky.Left -= Settings.skyLeft;
                 // the for loop below is checking to see the platforms and coins in the level 
                 // when they are found it will move them towards the left
                 foreach (Control x in this.Controls)
                 {
                     if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key")
                     {
-                        x.Left -= backLeft;
+                        x.Left -= Settings.backLeft;
                     }
                 }
             }
             // if go left is true and the background pictures left is less than 2 
             // then we move the background picture towards the right 
-            if (goleft && background.Left < 2)
+            if (Settings.goleft && background.Left < 2)
             {
-                background.Left += backLeft;
-                sky.Left += skyLeft;
+                background.Left += Settings.backLeft;
+                sky.Left += Settings.skyLeft;
                 // below the is the for loop thats checking to see the platforms and coins in the level
                 // when they are found in the level it will move them all towards the right with the background
                 foreach (Control x in this.Controls)
                 {
                     if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key")
                     {
-                        x.Left += backLeft;
+                        x.Left += Settings.backLeft;
                     }
                 }
             }
@@ -118,12 +108,12 @@ namespace Side_Scrolling_Platform_Game
                 {
                     // then we are checking if the player is colliding with the platform
                     // and jumping is set to false
-                    if (player.Bounds.IntersectsWith(x.Bounds) && !jumping)
+                    if (player.Bounds.IntersectsWith(x.Bounds) && !Settings.jumping)
                     {
                         // then we do the following
-                        force = 8; // set the force to 8 
+                        Settings.force = 8; // set the force to 8 
                         player.Top = x.Top - player.Height + 1; // also we place the player on top of the picture box 
-                        jumpSpeed = 0; // set the jump speed to 0
+                        Settings.jumpSpeed = 0; // set the jump speed to 0
                     }
                 }
                 // if the picture box found has a tag of coin 
@@ -133,11 +123,11 @@ namespace Side_Scrolling_Platform_Game
                     if (player.Bounds.IntersectsWith(x.Bounds))
                     {
                         this.Controls.Remove(x); // then we are going to remove the coin image 
-                        score++; // add 1 to the score 
+                        Settings.score++; // add 1 to the score 
                     }
                 }
             } // if the player collides with the door and has key boolean is true 
-            if (player.Bounds.IntersectsWith(door.Bounds) && hasKey)
+            if (player.Bounds.IntersectsWith(door.Bounds) && Settings.hasKey)
             { // then we change the image of the door to open 
                 door.Image = Properties.Resources.door_open;
                 // and we stop the timer 
@@ -150,7 +140,7 @@ namespace Side_Scrolling_Platform_Game
                 // then we remove the key from the game 
                 this.Controls.Remove(key);
                 // change the has key boolean to true 
-                hasKey = true;
+                Settings.hasKey = true;
             }
 
             // this is where the player dies 
@@ -168,17 +158,17 @@ namespace Side_Scrolling_Platform_Game
             // then we set the car left boolean to true 
             if (e.KeyCode == Keys.Left)
             {
-                goleft = true;
+                Settings.goleft = true;
             }
             // if player pressed the right key and the player left plus player width is less then the panel1 width 
             if (e.KeyCode == Keys.Right)
             { // then we set the player right to true 
-                goright = true; 
+                Settings.goright = true; 
             }
             //if the player pressed the space key and jumping boolean is false 
-            if (e.KeyCode == Keys.Space && !jumping)
+            if (e.KeyCode == Keys.Space && !Settings.jumping)
             { // then we set jumping to true
-                jumping = true;
+                Settings.jumping = true;
             }
 
         }
@@ -188,17 +178,17 @@ namespace Side_Scrolling_Platform_Game
             // then we set the car left boolean to true 
             if (e.KeyCode == Keys.Left)
             {
-                goleft = false;
+                Settings.goleft = false;
             }
             // if player pressed the right key and the player left plus player width is less then the panel1 width 
             if (e.KeyCode == Keys.Right)
             { // then we set the player right to true 
-                goright = false;
+                Settings.goright = false;
             }
 
-            if (jumping)
+            if (Settings.jumping)
             {
-                jumping = false;
+                Settings.jumping = false;
             }
         }
     }
