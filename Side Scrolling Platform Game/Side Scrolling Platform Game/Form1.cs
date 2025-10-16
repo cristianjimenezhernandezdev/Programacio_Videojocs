@@ -33,39 +33,8 @@ namespace Side_Scrolling_Platform_Game
 
         private void mainGameTimer(object sender, EventArgs e)
         {
-            player.Top += Settings.jumpSpeed; 
-            // refresh the player picture box consistently 
-            player.Refresh();
-            // if jumping is true and force is less than 0 // then change jumping to false 
-            if (Settings.jumping && Settings.force < 0)
-            {
-                Settings.jumping = false;
-            }
-
-            // if jumping is true // then change jump speed to -12 // reduce force by 1
-            if (Settings.jumping)
-            {
-                Settings.jumpSpeed = -12;
-                Settings.force -= 1;
-            }
-            else
-            { // else change the jump speed to 12 
-                Settings.jumpSpeed = 12;
-            }
-            // if go left is true and players left is greater than 100 pixels
-            // only then move player towards left of the
-            if (Settings.goleft && player.Left > Settings.margePantalla)
-            {
-                    player.Left -= Settings.playSpeed;
-            }
-            // by doing the if statement above, the player picture will stop on the forms left
-            // if go right Boolean is true
-            // player left plus players width plus 100 is less than the forms width
-            // then we move the player towards the right by adding to the players left
-            if (Settings.goright && player.Left + (player.Width + Settings.margePantalla) < this.ClientSize.Width)
-            {
-                player.Left += Settings.playSpeed;
-            }
+            
+            
 
             // by doing the if statement above, the player picture will stop on the forms right 
             // if go right is true and the background picture left is greater 1352 
@@ -145,13 +114,54 @@ namespace Side_Scrolling_Platform_Game
 
             // this is where the player dies 
             // if the player goes below the forms height then we will end the game 
-            if (player.Top + player.Height > this.ClientSize.Height + 60)
+            if (player.Top + player.Height > this.ClientSize.Height + Settings.deathMarge)
             {
                 gameTimer.Stop(); // stop the timer 
                 MessageBox.Show("You Died!!!"); // show the message box 
             }
         } // linking the jumpspeed i
-    
+        //---------------Metodes-----------------------------------------------------------
+        private void MoureVertical()
+        {
+            player.Top += Settings.jumpSpeed;
+            // refresh the player picture box consistently 
+            player.Refresh();
+            // if jumping is true and force is less than 0 // then change jumping to false 
+            if (Settings.jumping && Settings.force < 0)
+            {
+                Settings.jumping = false;
+            }
+
+            // if jumping is true // then change jump speed to -12 // reduce force by 1
+            if (Settings.jumping)
+            {
+                Settings.jumpSpeed = -12;
+                Settings.force -= 1;
+            }
+            else
+            { // else change the jump speed to 12 
+                Settings.jumpSpeed = 12;
+            }
+        }
+        private void MoureHoritzontal()
+        {
+            // if go left is true and players left is greater than 100 pixels
+            // only then move player towards left of the
+            if (Settings.goleft && player.Left > Settings.margePantalla)
+            {
+                player.Left -= Settings.playSpeed;
+            }
+            // by doing the if statement above, the player picture will stop on the forms left
+            // if go right Boolean is true
+            // player left plus players width plus 100 is less than the forms width
+            // then we move the player towards the right by adding to the players left
+            if (Settings.goright && player.Left + (player.Width + Settings.margePantalla) < this.ClientSize.Width)
+            {
+                player.Left += Settings.playSpeed;
+            }
+        }
+
+
 
         private void keyisdown(object sender, KeyEventArgs e)
         {
