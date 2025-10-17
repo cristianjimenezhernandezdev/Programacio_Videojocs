@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Side_Scrolling_Platform_Game
 {
-    public partial class Form1 : Form
+    public partial class Nivell2 : Form
     {
         
 
-        public Form1()
+        public Nivell2()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
