@@ -12,10 +12,11 @@ namespace Side_Scrolling_Platform_Game
 {
     public partial class Nivell2 : Form
     {
-        
+        Form form1;
 
-        public Nivell2()
+        public Nivell2(Form form1)
         {
+            
             InitializeComponent();
             this.DoubleBuffered = true;
             foreach (Control x in this.Controls)
@@ -151,6 +152,7 @@ namespace Side_Scrolling_Platform_Game
                 // and we stop the timer 
                 gameTimer.Stop();
                 MessageBox.Show("You Completed the level!!"); // show the message box 
+                form1.Close();
             }
             // if the player collides with the key picture box 
             if (player.Bounds.IntersectsWith(key.Bounds))
@@ -169,6 +171,7 @@ namespace Side_Scrolling_Platform_Game
             {
                 gameTimer.Stop(); // stop the timer 
                 MessageBox.Show("You Died!!!"); // show the message box 
+                form1.Close();
             }
         }
 

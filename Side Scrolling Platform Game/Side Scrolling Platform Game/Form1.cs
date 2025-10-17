@@ -151,7 +151,16 @@ namespace Side_Scrolling_Platform_Game
                 // and we stop the timer 
                 gameTimer.Stop();
                 MessageBox.Show("You Completed the level!!"); // show the message box 
+                //this.Hide();
+                Nivell2 nivell = new Nivell2(this);                
+                nivell.ShowDialog();
+                
+                
+
+                
             }
+            
+
             // if the player collides with the key picture box 
             if (player.Bounds.IntersectsWith(key.Bounds))
             {
@@ -168,7 +177,8 @@ namespace Side_Scrolling_Platform_Game
             if (player.Top + player.Height > this.ClientSize.Height + Settings.deathMarge)
             {
                 gameTimer.Stop(); // stop the timer 
-                MessageBox.Show("You Died!!!"); // show the message box 
+                MessageBox.Show("You Died!!!"); // show the message box
+
             }
         }
 
