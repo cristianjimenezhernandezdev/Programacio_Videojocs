@@ -212,5 +212,10 @@ namespace Side_Scrolling_Platform_Game
                 Settings.jumping = false;
             }
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
