@@ -158,10 +158,15 @@ namespace Side_Scrolling_Platform_Game
             // if the player collides with the key picture box 
             if (player.Bounds.IntersectsWith(key.Bounds))
             {
-                // then we remove the key from the game 
-                this.Controls.Remove(key);
-                // change the has key boolean to true 
-                Settings.hasKey = true;
+                if (Settings.key<1)
+                {
+                    // then we remove the key from the game 
+                    this.Controls.Remove(key);
+                    Settings.key++;
+                }
+                else
+                    // change the has key boolean to true 
+                    Settings.hasKey = true;
             }
         }
         private void mort()

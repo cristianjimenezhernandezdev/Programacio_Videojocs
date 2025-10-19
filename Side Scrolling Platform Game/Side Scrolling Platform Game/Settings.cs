@@ -20,7 +20,7 @@ namespace Side_Scrolling_Platform_Game
         public static int playSpeed = 18; //this integer will set players speed to 18 
         public static int backLeft = 8; // this integer will set the background moving speed to 8
         public static int skyLeft = 4; // this integer will set the background moving speed to 8
-                                       //creem valors que es repeteixen
+        public static int key = 0;                               //creem valors que es repeteixen
         public static int margePantalla = 100; // marge des de les vores de la pantalla
         public static int backgroundLimitEsquerra = -1353; // límit a l'esquerra del backgroung
         public static int backgroundLimitDreta = 2; // límit a la dreta del background       
@@ -34,6 +34,7 @@ namespace Side_Scrolling_Platform_Game
             hasKey = false;
             jumpSpeed = 10;
             force = 8;
+            key = 0;
 
         }
     }
