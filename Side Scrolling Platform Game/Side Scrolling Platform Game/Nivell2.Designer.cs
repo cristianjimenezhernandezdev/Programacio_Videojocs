@@ -526,9 +526,9 @@
             // pictureBox30
             // 
             this.pictureBox30.Image = global::Side_Scrolling_Platform_Game.Properties.Resources.dbz;
-            this.pictureBox30.Location = new System.Drawing.Point(158, -17);
+            this.pictureBox30.Location = new System.Drawing.Point(171, -17);
             this.pictureBox30.Name = "pictureBox30";
-            this.pictureBox30.Size = new System.Drawing.Size(151, 178);
+            this.pictureBox30.Size = new System.Drawing.Size(119, 178);
             this.pictureBox30.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox30.TabIndex = 29;
             this.pictureBox30.TabStop = false;

@@ -209,9 +209,15 @@ namespace Side_Scrolling_Platform_Game
                 // change the has key boolean to true 
                 Settings.hasKey = true;
             }
-            if (Settings.hasKey = true) 
+            if (Settings.hasKey == true) 
             {
-                
+                foreach (Control x in this.Controls)
+                {
+                    if (x is PictureBox && x.Tag != null && x.Tag.ToString() == "roshi")
+                    {
+                        x.Visible = true;
+                    }
+                }
             }
 
         }
