@@ -92,7 +92,7 @@ namespace Side_Scrolling_Platform_Game
                 // when they are found it will move them towards the left
                 foreach (Control x in this.Controls)
                 {
-                    if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key")
+                    if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key" || x is PictureBox && x.Tag == "roshi")
                     {
                         x.Left -= Settings.backLeft;
                     }
@@ -108,7 +108,7 @@ namespace Side_Scrolling_Platform_Game
                 // when they are found in the level it will move them all towards the right with the background
                 foreach (Control x in this.Controls)
                 {
-                    if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key")
+                    if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key" || x is PictureBox && x.Tag == "roshi")
                     {
                         x.Left += Settings.backLeft;
                     }

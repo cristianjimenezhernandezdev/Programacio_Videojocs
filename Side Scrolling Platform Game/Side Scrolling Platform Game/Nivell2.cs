@@ -16,7 +16,7 @@ namespace Side_Scrolling_Platform_Game
 
         public Nivell2(Form form1)
         {
-            this.form1 = form1; // AFEGEIX AQUESTA LÍNIA (faltava assignar el paràmetre)
+            this.form1 = form1; 
             
             InitializeComponent();
             Settings.Reset();
@@ -30,7 +30,14 @@ namespace Side_Scrolling_Platform_Game
                 System.Reflection.PropertyInfo prop =
                 typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 prop.SetValue(x, true, null);
+                if (x is PictureBox && x.Tag != null && x.Tag.ToString() == "roshi")
+                {
+                    x.Visible=false;
+                }
+
             }
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -40,6 +47,7 @@ namespace Side_Scrolling_Platform_Game
 
         private void mainGameTimer(object sender, EventArgs e)
         {
+            
             MoureVertical();
             MoureHoritzontal();
             MoureBackground();
@@ -47,6 +55,7 @@ namespace Side_Scrolling_Platform_Game
             mort();
         } 
         //---------------Metodes-----------------------------------------------------------
+        
         private void MoureVertical()
         {
             player.Top += Settings.jumpSpeed;
@@ -99,7 +108,7 @@ namespace Side_Scrolling_Platform_Game
                 // when they are found it will move them towards the left
                 foreach (Control x in this.Controls)
                 {
-                    if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key")
+                    if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key" || x is PictureBox && x.Tag == "roshi")
                     {
                         x.Left -= Settings.backLeft;
                     }
@@ -115,7 +124,7 @@ namespace Side_Scrolling_Platform_Game
                 // when they are found in the level it will move them all towards the right with the background
                 foreach (Control x in this.Controls)
                 {
-                    if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key")
+                    if (x is PictureBox && x.Tag == "platform" || x is PictureBox && x.Tag == "coin" || x is PictureBox && x.Tag == "door" || x is PictureBox && x.Tag == "key" || x is PictureBox && x.Tag == "roshi")
                     {
                         x.Left += Settings.backLeft;
                     }
@@ -152,6 +161,18 @@ namespace Side_Scrolling_Platform_Game
                         label2.Text = Settings.score.ToString();
                     }
                 }
+                //Enemic
+                if (x is PictureBox && x.Tag == "roshi")
+                {
+                    // now if the player collides with the coin picture box 
+                    if (player.Bounds.IntersectsWith(x.Bounds)&&x.Visible==true)
+                    {
+                        gameTimer.Stop(); // stop the timer 
+                        MessageBox.Show("You Died!!!"); // show the message box 
+                        form1.Close();
+                    }
+                }
+
             } // if the player collides with the door and has key boolean is true 
             if (player.Bounds.IntersectsWith(door.Bounds) && Settings.hasKey)
             { // then we change the image of the door to open 
@@ -188,6 +209,11 @@ namespace Side_Scrolling_Platform_Game
                 // change the has key boolean to true 
                 Settings.hasKey = true;
             }
+            if (Settings.hasKey = true) 
+            {
+                
+            }
+
         }
         private void mort()
         {
@@ -200,6 +226,7 @@ namespace Side_Scrolling_Platform_Game
                 form1.Close();
             }
         }
+
 
 
         // linking the jumpspeed i
