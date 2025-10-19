@@ -151,7 +151,7 @@ namespace Side_Scrolling_Platform_Game
                 // and we stop the timer 
                 gameTimer.Stop();
                 MessageBox.Show("You Completed the level!!"); // show the message box 
-                //this.Hide();
+                this.Hide();
                 Nivell2 nivell = new Nivell2(this);                
                 nivell.ShowDialog();
                 

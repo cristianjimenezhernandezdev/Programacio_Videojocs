@@ -18,6 +18,7 @@ namespace Side_Scrolling_Platform_Game
         {
             
             InitializeComponent();
+            Settings.Reset();
             this.DoubleBuffered = true;
             foreach (Control x in this.Controls)
             {
