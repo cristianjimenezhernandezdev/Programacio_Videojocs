@@ -171,8 +171,9 @@ namespace Side_Scrolling_Platform_Game
                     Settings.key++;
                 }
                 else
-                    // change the has key boolean to true 
-                    Settings.hasKey = true;
+                    this.Controls.Remove(pb1);
+                // change the has key boolean to true 
+                Settings.hasKey = true;
             }
             if (player.Bounds.IntersectsWith(pictureBox21.Bounds))
             {
@@ -183,8 +184,9 @@ namespace Side_Scrolling_Platform_Game
                     Settings.key++;
                 }
                 else
-                    // change the has key boolean to true 
-                    Settings.hasKey = true;
+                    this.Controls.Remove(pictureBox21);
+                // change the has key boolean to true 
+                Settings.hasKey = true;
             }
         }
         private void mort()
