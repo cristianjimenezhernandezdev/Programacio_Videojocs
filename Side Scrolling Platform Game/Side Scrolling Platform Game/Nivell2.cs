@@ -16,10 +16,15 @@ namespace Side_Scrolling_Platform_Game
 
         public Nivell2(Form form1)
         {
+            this.form1 = form1; // AFEGEIX AQUESTA LÍNIA (faltava assignar el paràmetre)
             
             InitializeComponent();
             Settings.Reset();
             this.DoubleBuffered = true;
+            
+            // Afegeix el handler per tancar correctament
+            this.FormClosing += Nivell2_FormClosing;
+            
             foreach (Control x in this.Controls)
             {
                 System.Reflection.PropertyInfo prop =
@@ -144,6 +149,7 @@ namespace Side_Scrolling_Platform_Game
                     {
                         this.Controls.Remove(x); // then we are going to remove the coin image 
                         Settings.score++; // add 1 to the score 
+                        label2.Text = Settings.score.ToString();
                     }
                 }
             } // if the player collides with the door and has key boolean is true 
@@ -156,12 +162,24 @@ namespace Side_Scrolling_Platform_Game
                 form1.Close();
             }
             // if the player collides with the key picture box 
-            if (player.Bounds.IntersectsWith(key.Bounds))
+            if (player.Bounds.IntersectsWith(pb1.Bounds))
             {
                 if (Settings.key<1)
                 {
                     // then we remove the key from the game 
-                    this.Controls.Remove(key);
+                    this.Controls.Remove(pb1);
+                    Settings.key++;
+                }
+                else
+                    // change the has key boolean to true 
+                    Settings.hasKey = true;
+            }
+            if (player.Bounds.IntersectsWith(pictureBox21.Bounds))
+            {
+                if (Settings.key < 1)
+                {
+                    // then we remove the key from the game 
+                    this.Controls.Remove(pictureBox21);
                     Settings.key++;
                 }
                 else
@@ -225,6 +243,13 @@ namespace Side_Scrolling_Platform_Game
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        // Afegeix aquest mètode nou
+        private void Nivell2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            gameTimer.Stop(); // Atura el timer
+            form1?.Close();   // Tanca Form1 si existeix
         }
     }
 }

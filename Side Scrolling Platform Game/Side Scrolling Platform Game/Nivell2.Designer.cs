@@ -40,7 +40,7 @@
             this.pictureBox13 = new System.Windows.Forms.PictureBox();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.key = new System.Windows.Forms.PictureBox();
+            this.pb1 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
@@ -66,6 +66,7 @@
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
             this.pictureBox29 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).BeginInit();
@@ -76,7 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.key)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -219,16 +220,16 @@
             this.pictureBox9.TabStop = false;
             this.pictureBox9.Tag = "platform";
             // 
-            // key
+            // pb1
             // 
-            this.key.Image = global::Side_Scrolling_Platform_Game.Properties.Resources.key;
-            this.key.Location = new System.Drawing.Point(1561, 332);
-            this.key.Name = "key";
-            this.key.Size = new System.Drawing.Size(90, 47);
-            this.key.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.key.TabIndex = 12;
-            this.key.TabStop = false;
-            this.key.Tag = "key";
+            this.pb1.Image = global::Side_Scrolling_Platform_Game.Properties.Resources.key;
+            this.pb1.Location = new System.Drawing.Point(1561, 332);
+            this.pb1.Name = "pb1";
+            this.pb1.Size = new System.Drawing.Size(90, 47);
+            this.pb1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pb1.TabIndex = 12;
+            this.pb1.TabStop = false;
+            this.pb1.Tag = "key";
             // 
             // pictureBox8
             // 
@@ -365,7 +366,7 @@
             // pictureBox21
             // 
             this.pictureBox21.Image = global::Side_Scrolling_Platform_Game.Properties.Resources.key;
-            this.pictureBox21.Location = new System.Drawing.Point(1317, 332);
+            this.pictureBox21.Location = new System.Drawing.Point(1339, 332);
             this.pictureBox21.Name = "pictureBox21";
             this.pictureBox21.Size = new System.Drawing.Size(90, 47);
             this.pictureBox21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -506,11 +507,22 @@
             this.label1.Text = "Aprovecha el Bug";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(13, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(14, 16);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "0";
+            // 
             // Nivell2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 480);
+            this.ClientSize = new System.Drawing.Size(1839, 480);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox21);
             this.Controls.Add(this.pictureBox20);
@@ -524,7 +536,7 @@
             this.Controls.Add(this.pictureBox13);
             this.Controls.Add(this.pictureBox12);
             this.Controls.Add(this.pictureBox9);
-            this.Controls.Add(this.key);
+            this.Controls.Add(this.pb1);
             this.Controls.Add(this.pictureBox8);
             this.Controls.Add(this.pictureBox29);
             this.Controls.Add(this.pictureBox28);
@@ -564,7 +576,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.key)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
@@ -608,7 +620,7 @@
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox key;
+        private System.Windows.Forms.PictureBox pb1;
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.PictureBox pictureBox12;
         private System.Windows.Forms.PictureBox pictureBox13;
@@ -633,6 +645,7 @@
         private System.Windows.Forms.PictureBox pictureBox28;
         private System.Windows.Forms.PictureBox pictureBox29;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

@@ -141,7 +141,9 @@ namespace Side_Scrolling_Platform_Game
                     if (player.Bounds.IntersectsWith(x.Bounds))
                     {
                         this.Controls.Remove(x); // then we are going to remove the coin image 
-                        Settings.score++; // add 1 to the score 
+                        Settings.score++; // add 1 to the score
+                        label1.Text= Settings.score.ToString();
+
                     }
                 }
             } // if the player collides with the door and has key boolean is true 

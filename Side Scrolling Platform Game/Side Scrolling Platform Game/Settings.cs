@@ -35,6 +35,7 @@ namespace Side_Scrolling_Platform_Game
             jumpSpeed = 10;
             force = 8;
             key = 0;
+            score = 0;
 
         }
     }
